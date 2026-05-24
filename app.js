@@ -2,6 +2,14 @@ src="https://unpkg.com/react@18/umd/react.development.js"
 src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
 
 const {useState,useRef,useCallback,useEffect}=React;
+const SUPABASE_URL = 'https://zjqkeyecaoaecxrxyzad.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_T8I2EiMPiTO6OGQhWhmqpA_2EsnMTYd';
+
+const supabase = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+console.log("SUPABASE OK", supabase);
 
 const SPANISH_UPPER=/^[A-ZÁÉÍÓÚÑÜ]*$/;
 const CEDULA_CHARS=/^[\d\-]*$/;
@@ -185,10 +193,52 @@ function App(){
 
   const handleDocToggle=t=>{setDocType(t);setCedula('');setErrors({});};
 
-  const submit=()=>{
-    setTouched({nombre:1,apellido:1,cedula:1,correo:1,pass:1,pass2:1,dob:1});
-    if(isValid)setSubmitted(true);
-  };
+  const submit = async () => {
+
+  setTouched({
+    nombre:1,
+    apellido:1,
+    cedula:1,
+    correo:1,
+    pass:1,
+    pass2:1,
+    dob:1
+  });
+
+  if(!isValid) return;
+
+  try {
+
+    const { data, error } = await supabase
+      .from('usuarios')
+      .insert([
+        {
+          nombre: nombre,
+          apellido: apellido,
+          documento: cedula,
+          tipo_documento: docType,
+          correo: correo,
+          fecha_nacimiento: dob,
+          foto_perfil: photoUser,
+          foto_documento: photoDoc
+        }
+      ]);
+
+    if(error){
+      console.error(error);
+      alert('Error guardando usuario');
+      return;
+    }
+
+    console.log('Usuario guardado:', data);
+
+    setSubmitted(true);
+
+  } catch(err){
+    console.error(err);
+    alert('Error inesperado');
+  }
+};
 
   const fStatus=(k)=>{
     if(!touched[k])return '';
