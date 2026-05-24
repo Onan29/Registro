@@ -1,8 +1,7 @@
-src="https://unpkg.com/react@18/umd/react.development.js"
-src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"
-
 const {useState,useRef,useCallback,useEffect}=React;
+
 const SUPABASE_URL = 'https://zjqkeyecaoaecxrxyzad.supabase.co';
+
 const SUPABASE_ANON_KEY = 'sb_publishable_T8I2EiMPiTO6OGQhWhmqpA_2EsnMTYd';
 
 const supabase = window.supabase.createClient(
