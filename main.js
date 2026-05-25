@@ -1,15 +1,14 @@
-const { useState } = React;
+async function testConnection() {
 
-const SUPABASE_URL = 'https://zjqkeyecaoaecxrxyzad.supabase.co';
+  const { data, error } = await client
+    .from('usuarios')
+    .select('*');
 
-const SUPABASE_ANON_KEY = 'sb_publishable_T8I2EiMPiTO6OGQhWhmqpA_2EsnMTYd';
+  console.log("DATA:", data);
+  console.log("ERROR:", error);
+}
 
-const client = window.supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
-
-console.log("SUPABASE OK", client);
+testConnection();
 
 function App() {
   return React.createElement(
@@ -19,11 +18,10 @@ function App() {
         background: 'black',
         color: 'white',
         minHeight: '100vh',
-        padding: '40px',
-        fontSize: '32px'
+        padding: '40px'
       }
     },
-    'FUNCIONANDO'
+    'Conectando a Supabase...'
   );
 }
 
