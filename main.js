@@ -10,20 +10,31 @@ const client = window.supabase.createClient(
 );
 
 console.log("SUPABASE OK", client);
-
-async function testConnection() {
-
-  const { data, error } = await client
-    .from('usuarios')
-    .select('*');
-
-  console.log("DATA:", data);
-  console.log("ERROR:", error);
-}
-
-testConnection();
-
 function App() {
+
+  async function guardarUsuario() {
+
+    const { data, error } = await client
+      .from('usuarios')
+      .insert([
+        {
+          nombre: 'Onan',
+          apellido: 'Torres',
+          correo: 'prueba@gmail.com'
+        }
+      ]);
+
+    console.log("DATA:", data);
+    console.log("ERROR:", error);
+
+    if(error){
+      alert("Error guardando");
+      return;
+    }
+
+    alert("Usuario guardado correctamente");
+  }
+
   return React.createElement(
     'div',
     {
@@ -34,7 +45,19 @@ function App() {
         padding: '40px'
       }
     },
-    'Conectando a Supabase...'
+
+    React.createElement(
+      'button',
+      {
+        onClick: guardarUsuario,
+        style: {
+          padding: '15px 30px',
+          fontSize: '20px',
+          cursor: 'pointer'
+        }
+      },
+      'Guardar Usuario'
+    )
   );
 }
 
