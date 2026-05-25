@@ -1,3 +1,16 @@
+const { useState } = React;
+
+const SUPABASE_URL = 'https://zjqkeyecaoaecxrxyzad.supabase.co';
+
+const SUPABASE_ANON_KEY = 'sb_publishable_T8I2EiMPiTO6OGQhWhmqpA_2EsnMTYd';
+
+const client = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+console.log("SUPABASE OK", client);
+
 async function testConnection() {
 
   const { data, error } = await client
