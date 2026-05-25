@@ -4,25 +4,26 @@ const SUPABASE_URL = 'https://zjqkeyecaoaecxrxyzad.supabase.co';
 
 const SUPABASE_ANON_KEY = 'sb_publishable_T8I2EiMPiTO6OGQhWhmqpA_2EsnMTYd';
 
-const supabase = window.supabase.createClient(
+const client = window.supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
 
-console.log("SUPABASE OK", supabase);
+console.log("SUPABASE OK", client);
 
 function App() {
   return React.createElement(
     'div',
     {
       style: {
-        color: 'white',
         background: 'black',
+        color: 'white',
         minHeight: '100vh',
-        padding: '40px'
+        padding: '40px',
+        fontSize: '32px'
       }
     },
-    'APP FUNCIONANDO'
+    'FUNCIONANDO'
   );
 }
 
