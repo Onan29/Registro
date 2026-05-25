@@ -10,57 +10,18 @@ const client = window.supabase.createClient(
 );
 
 console.log("SUPABASE OK", client);
-function App() {
 
-  async function guardarUsuario() {
-
-    const { data, error } = await client
-      .from('usuarios')
-      .insert([
-        {
-          nombre: 'Onan',
-          apellido: 'Torres',
-          correo: 'prueba@gmail.com'
-        }
-      ]);
-
-    console.log("DATA:", data);
-    console.log("ERROR:", error);
-
-    if(error){
-      alert("Error guardando");
-      return;
-    }
-
-    alert("Usuario guardado correctamente");
-  }
-
-  return React.createElement(
-    'div',
+const { data, error } = await client
+  .from('usuarios')
+  .insert([
     {
-      style: {
-        background: 'black',
-        color: 'white',
-        minHeight: '100vh',
-        padding: '40px'
-      }
-    },
-
-    React.createElement(
-      'button',
-      {
-        onClick: guardarUsuario,
-        style: {
-          padding: '15px 30px',
-          fontSize: '20px',
-          cursor: 'pointer'
-        }
-      },
-      'Guardar Usuario'
-    )
-  );
-}
-
-ReactDOM
-  .createRoot(document.getElementById('root'))
-  .render(React.createElement(App));
+      nombre: 'Onan',
+      apellido: 'Torres',
+      documento: '8-123-456',
+      tipo_documento: 'cedula',
+      correo: 'prueba2@gmail.com',
+      fecha_nacimiento: '01/01/2000',
+      foto_perfil: null,
+      foto_documento: null
+    }
+  ]);
